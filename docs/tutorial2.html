@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Steady-State Distribution of Ornstein-Uhlenbeck Process &mdash; Adaptive Finite Volume Toolbox 0.1 alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/mystyle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OU Process with Adaptive Refinements" href="tutorial3.html" />
+    <link rel="prev" title="Grid Construction and Basic Interactions" href="tutorial1.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Adaptive Finite Volume Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial1.html">Grid Construction and Basic Interactions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Steady-State Distribution of Ornstein-Uhlenbeck Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial3.html">OU Process with Adaptive Refinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial4.html">OU Process with Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adaptive Finite Volume Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Steady-State Distribution of Ornstein-Uhlenbeck Process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="steady-state-distribution-of-ornstein-uhlenbeck-process">
+<h1>Steady-State Distribution of Ornstein-Uhlenbeck Process<a class="headerlink" href="#steady-state-distribution-of-ornstein-uhlenbeck-process" title="Permalink to this headline">¶</a></h1>
+<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>In this tutorial, we will solve for the distribution of resulting from the Ornstein-Uhlenbeck Process</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial f}{\partial t} = -\sum_{i=1}^2 \theta_i \frac{\partial}{\partial x_i} \left[(\mu_i - x_i)\cdot f\right] + \sum_{i=1}^2 \frac{\sigma_i^2}{2} \frac{\partial^2 f}{\partial x_i^2}\]</div>
+<p>in 2-dimension. From an explicit calculation, one can get that the steady-state is given by</p>
+<div class="math notranslate nohighlight">
+\[f(\mathbf{x}) = \prod_{i=1}^2 \left[\sqrt{\frac{1}{\pi\sigma_i^2}} e^{-\theta\frac{(x_i - \mu_i)^2}{\sigma_i^2}}\right]\]</div>
+<p>Since the actual program itself is not long, we will carry everything. First, we define the parameters of the Ornstein-Uhlenbeck process</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">n_dim</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">n_points</span> <span class="p">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">int_sig</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">make_plots</span> <span class="p">=</span> <span class="n">true</span><span class="p">;</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">mu</span> <span class="p">=</span> <span class="mf">0.495</span><span class="o">.*</span><span class="nb">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="mf">1.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">sigma</span> <span class="p">=</span> <span class="n">int_sig</span><span class="o">.^</span><span class="mf">2.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Hence, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;\vec{\mu} = \begin{bmatrix}0.495\\0.495\end{bmatrix}\\
+&amp;\vec{\sigma} = \begin{bmatrix} 0.1\\ 0.1\end{bmatrix}\\
+&amp;\vec{\theta} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\end{split}\]</div>
+<p>To implement this example, we initialize the <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a> object.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>First, we will split the grid uniformly into 20 grid points using <a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a>. This function only allows tensor structure division of the grid (regular grid), and the splitting cut points are given as cells of vectors of dimension.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">cut_points</span> <span class="p">=</span> <span class="n">cell</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">cut_points_1d</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_points</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">cut_points_1d</span> <span class="p">=</span> <span class="n">cut_points_1d</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cut_points</span><span class="p">{</span><span class="n">iter_dim</span><span class="p">}</span> <span class="p">=</span> <span class="n">cut_points_1d</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+<span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split_init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cut_points</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>At this points, [0,1]x[0,1] has been split into 400 grid points (20 per dimension). We can visualize this by making a scatter plot of center of the cells. One can compute the center of the cells via <a class="reference internal" href="technical.html#afv_grid.node_midpoints" title="afv_grid.node_midpoints"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">node_midpoints</span></code></a>.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">node_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">));</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/afv_tutorial2_fig_1.png"><img alt="_images/afv_tutorial2_fig_1.png" class="align-center" src="_images/afv_tutorial2_fig_1.png" style="width: 100%;" /></a>
+<p>At this point, the grid only has the information on the cells. It keeps the neighbor structure of the cells updated, but not the edges. The edge information can be updated via <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a>. Whenever the grid structure changes, <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a> needs to be called to make sure that the edge structure is consistent with the updated grid.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>We can visualize edges by making a scatter plot of their midpoints (using <a class="reference internal" href="technical.html#afv_grid.edge_midpoints" title="afv_grid.edge_midpoints"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">edge_midpoints</span></code></a>) as well</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">edge_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span> <span class="s">&#39;r.&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/afv_tutorial2_fig_2.png"><img alt="_images/afv_tutorial2_fig_2.png" class="align-center" src="_images/afv_tutorial2_fig_2.png" style="width: 100%;" /></a>
+<p>Now, we are ready to implement the Ornstein-Uhlenbeck process. The equation is completely defined with drifts and diffusion terms corresponding to the edges. The data for edges are stored as a vector. However, the drift values needs to be different depending on which direction the edge faces. The normal direction of the edge are stored as <a class="reference internal" href="technical.html#afv_grid.e2dir" title="afv_grid.e2dir"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2dir</span></code></a>. Hence, the drift terms can be implemented with</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">edge_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">drift</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="n">theta</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">,</span> <span class="n">iter_dim</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">));</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+</pre></div>
+</div>
+<p>For example, with <code class="code docutils literal notranslate"><span class="pre">iter_dim</span> <span class="pre">=</span> <span class="pre">1</span></code>, the drift value of the edges facing the first coordinate directions are updated. This is why <span class="math notranslate nohighlight">\(x_1\)</span> ( = <code class="code docutils literal notranslate"><span class="pre">x_i(cur_ind,</span> <span class="pre">iter_dim)</span></code> ) is used to compute the drift.</p>
+<p>Similarly diffusion can be implemented,</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="n">sigma</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+</pre></div>
+</div>
+<p>note that the value that’s defined for diffusion is <span class="math notranslate nohighlight">\(\sigma^2_i\)</span>, without the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>. As the fraction <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> shows up in all equations, it is taken as implicit when the transition matrix is built.</p>
+<p>Now, once we have set the drift and diffusion terms to the edges, we can build the transition matrix using <a class="reference internal" href="technical.html#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a>.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>For the steady-state, we find a solution to <span class="math notranslate nohighlight">\(Ag = 0\)</span>. Hence, we can use any eigenvalue solver to do so.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="o">~</span><span class="p">]</span> <span class="p">=</span> <span class="n">eigs</span><span class="p">(</span><span class="n">A_FP</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;sm&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">g</span> <span class="p">=</span> <span class="n">g</span><span class="o">./</span><span class="n">sum</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally, we can make a plot to see the accuracy of the scheme</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">node_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter3</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">g</span><span class="o">./</span><span class="n">grid</span><span class="p">.</span><span class="n">node_weights</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter3</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">g_true</span><span class="p">(</span><span class="n">x_i</span><span class="p">),</span><span class="s">&#39;.&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/afv_tutorial2_fig_3.png"><img alt="_images/afv_tutorial2_fig_3.png" class="align-center" src="_images/afv_tutorial2_fig_3.png" style="width: 100%;" /></a>
+<p>For this particular set of parameters, the grid is not good enough to approximate with high accuracy. One can see that this is largely due to picking wrong domain for the parameter values. This will be fixed by adjusting domain or using adaptive refinements. The adaptive refinements will be shown in the next tutorial, but in the mean time, let’s solve a problem with nicer parameters.</p>
+<p>One nice feature of the finite volume discretization is that the structure of the transition matrix is independent of the parameter values, so only the drift and diffusion have to be updated to reflect the new parameters.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;\vec{\mu} = \begin{bmatrix}0.35\\0.35\end{bmatrix}\\
+&amp;\vec{\sigma} = \begin{bmatrix} 0.2\\ 0.2\end{bmatrix}\\
+&amp;\vec{\theta} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\end{split}\]</div>
+<p>To implement these parameters, we can just update the drifts and diffusion</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">int_sig</span> <span class="p">=</span> <span class="mf">0.2</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">make_plots</span> <span class="p">=</span> <span class="n">true</span><span class="p">;</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">mu</span> <span class="p">=</span> <span class="mf">0.35</span><span class="o">.*</span><span class="nb">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="mf">1.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">sigma</span> <span class="p">=</span> <span class="n">int_sig</span><span class="o">.^</span><span class="mf">2.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">edge_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">drift</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="n">theta</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">,</span> <span class="n">iter_dim</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">));</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="n">sigma</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+</pre></div>
+</div>
+<p>and compute the transition matrix and the steady-state distribution</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="o">~</span><span class="p">]</span> <span class="p">=</span> <span class="n">eigs</span><span class="p">(</span><span class="n">A_FP</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;sm&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">g</span> <span class="p">=</span> <span class="n">g</span><span class="o">./</span><span class="n">sum</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/afv_tutorial2_fig_4.png"><img alt="_images/afv_tutorial2_fig_4.png" class="align-center" src="_images/afv_tutorial2_fig_4.png" style="width: 100%;" /></a>
+<p>To conclude, one can see that using the finite volume discretization is simple with minimal coding. One just needs to call</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Initialize grid <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a></li>
+<li>Split the grid <a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a></li>
+<li>Extract Edges <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a></li>
+<li>Define drifts and diffusion</li>
+<li>Build transition matrix <a class="reference internal" href="technical.html#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a></li>
+</ol>
+</div></blockquote>
+<p>Technical Disclaimer: In the tutorial there was no mention of the boundary conditions. Implicitly it is being assumed that the boundary is a reflecting boundary. Hence, if <span class="math notranslate nohighlight">\(\sigma_i\)</span>‘s are too large, the exact solution is not the exact solution to the PDE being solved by the finite-volume method. Allowing “flows” at the boundaries will be considered later (<a class="reference internal" href="technical.html#afv_grid.compute_transition_matrix_boundary" title="afv_grid.compute_transition_matrix_boundary"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_boundary</span></code></a>.)</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial3.html" class="btn btn-neutral float-right" title="OU Process with Adaptive Refinements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial1.html" class="btn btn-neutral" title="Grid Construction and Basic Interactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, SeHyoun Ahn
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.1 alpha',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  false,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

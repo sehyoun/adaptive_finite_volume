@@ -1,0 +1,1031 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Technical Documentation &mdash; Adaptive Finite Volume Toolbox 0.1 alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/mystyle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="OU Process with Boundary Conditions" href="tutorial4.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Adaptive Finite Volume Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technical Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adaptive Finite Volume Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Technical Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="technical-documentation">
+<span id="technical"></span><h1>Technical Documentation<a class="headerlink" href="#technical-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the technical documentation page. See <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> to get started.</p>
+<div class="section" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<dl class="attribute">
+<dt id="afv_grid.diffusion">
+<code class="descclassname">afv_grid.</code><code class="descname">diffusion</code><a class="headerlink" href="#afv_grid.diffusion" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span> vector of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Diffusion across the given edge. It is set by the users before computing transition matrices</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.drift">
+<code class="descclassname">afv_grid.</code><code class="descname">drift</code><a class="headerlink" href="#afv_grid.drift" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span> vector of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Drift across the given edge. It is set by the users before computing transition matrices</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.e2bd">
+<code class="descclassname">afv_grid.</code><code class="descname">e2bd</code><a class="headerlink" href="#afv_grid.e2bd" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a> <span class="math notranslate nohighlight">\(\times\)</span> (2 <span class="math notranslate nohighlight">\(\cdot\)</span> <a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">afv_grid.n_dim</span></code></a>))-matrix of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Boundary values of edges</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">boundaries are stacked in lexicographic order of (coordinate direction, left/right boundary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.e2dir">
+<code class="descclassname">afv_grid.</code><code class="descname">e2dir</code><a class="headerlink" href="#afv_grid.e2dir" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span>)-vector of integers</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Normal/coordinate direction of the edge</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.e2n">
+<code class="descclassname">afv_grid.</code><code class="descname">e2n</code><a class="headerlink" href="#afv_grid.e2n" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a> <span class="math notranslate nohighlight">\(\times\)</span> 2)-matrix of integers</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Connectivity graph from edges to nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.e_weights">
+<code class="descclassname">afv_grid.</code><code class="descname">e_weights</code><a class="headerlink" href="#afv_grid.e_weights" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span>)-vector of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">(integral) weights of the edges</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n2bd">
+<code class="descclassname">afv_grid.</code><code class="descname">n2bd</code><a class="headerlink" href="#afv_grid.n2bd" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">afv_grid.num_e</span></code></a> <span class="math notranslate nohighlight">\(\times\)</span> (2 <span class="math notranslate nohighlight">\(\cdot\)</span> <a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">afv_grid.n_dim</span></code></a> ) )-matrix of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Boundary values of the cell</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">boundaries are stacked in lexicographic order of (left/right boundary, coordinate direction)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n2e">
+<code class="descclassname">afv_grid.</code><code class="descname">n2e</code><a class="headerlink" href="#afv_grid.n2e" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">afv_grid.num_e</span></code></a> <span class="math notranslate nohighlight">\(\times\)</span> <a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">afv_grid.n_dim</span></code></a> <span class="math notranslate nohighlight">\(\times 2\)</span>) cell array of vector of integers</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Connectivity graph from nodes to edges.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n2n">
+<code class="descclassname">afv_grid.</code><code class="descname">n2n</code><a class="headerlink" href="#afv_grid.n2n" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first">(<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n_dim</span></code></a><span class="math notranslate nohighlight">\(\times 2\)</span>) cell of integers</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body"><p class="first">Neighbor structure of nodes. The third index corresponds to</p>
+<ul class="last simple">
+<li>1: left neighbors</li>
+<li>2: right neighbors</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n_dim">
+<code class="descclassname">afv_grid.</code><code class="descname">n_dim</code><a class="headerlink" href="#afv_grid.n_dim" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Dimensionality of the grid</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n_points">
+<code class="descclassname">afv_grid.</code><code class="descname">n_points</code><a class="headerlink" href="#afv_grid.n_points" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Total number of nodes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Warning:</th><td class="field-body">This is DEPRECATED, and will be eventually removed. Kept for code-reusability with <a class="reference external" href="https://sehyoun.com/Mean_Field_Games_Toolbox">Mean Field Games Toolbox</a>. Use <a class="reference internal" href="#afv_grid.num_e" title="afv_grid.num_e"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_e</span></code></a> or <a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> instead.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.n_weights">
+<code class="descclassname">afv_grid.</code><code class="descname">n_weights</code><a class="headerlink" href="#afv_grid.n_weights" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span>) vector of doubles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Size of the nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.num_e">
+<code class="descclassname">afv_grid.</code><code class="descname">num_e</code><a class="headerlink" href="#afv_grid.num_e" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Total number of edges</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.num_n">
+<code class="descclassname">afv_grid.</code><code class="descname">num_n</code><a class="headerlink" href="#afv_grid.num_n" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">integer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Total number of nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.num_nb">
+<code class="descclassname">afv_grid.</code><code class="descname">num_nb</code><a class="headerlink" href="#afv_grid.num_nb" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first">(<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n_dim</span></code></a><span class="math notranslate nohighlight">\(\times 2\)</span>) array of integers</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body"><p class="first">Number of neighbors of nodes. The third index corresponds to</p>
+<ul class="last simple">
+<li>1: left neighbors</li>
+<li>2: right neighbors</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="afv_grid.x_i">
+<code class="descclassname">afv_grid.</code><code class="descname">x_i</code><a class="headerlink" href="#afv_grid.x_i" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">(<a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n_dim</span></code></a><span class="math notranslate nohighlight">\(\times 1\)</span>) cell array of vectors of doubles.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Description:</th><td class="field-body">Coordinate value of edges or nodes. Users can set this directly.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">See also:</th><td class="field-body">XXXXXXXX</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="afv_grid.add_new_nodes">
+<code class="descclassname">afv_grid.</code><code class="descname">add_new_nodes</code><span class="sig-paren">(</span><em>obj</em>, <em>n2bd_new</em>, <em>ind_to_consider</em>, <em>flag_compute_left</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.add_new_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new nodes to the grid</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n2bd_new</strong> – boundaries of new node points</li>
+<li><strong>ind_to_consider</strong> (<em>vector of indices</em>) – (optional) indices of nodes that have interface with new nodes</li>
+<li><strong>flag_compute_left</strong> (<em>bool</em>) – (default: false) whether to compute left neighbors as well.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>[n2n] (implicit in class)</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>n2n</strong> : (in class) neighbor structure</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The computing neighbor structure from scratch is an expensive operation. Therefore, one should use new_ind whenever possible. This behavior is guaranteed if one computes using <a class="reference internal" href="#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a> or <a class="reference internal" href="#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a>, so one should use that function whenever it is feasible.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="afv_grid.afv_grid.afv_grid">
+<code class="descclassname">afv_grid.</code><code class="descname">afv_grid</code><span class="sig-paren">(</span><em>n_dim</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.afv_grid.afv_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n_dim</strong> (<em>integer</em>) – Dimensionality of the grid</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#afv_grid.set_dim" title="afv_grid.set_dim"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">set_dim</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_diffusion_distance">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_diffusion_distance</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_diffusion_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>INTERNAL METHOD: Calculate the diffusion distance to approximate <span class="math notranslate nohighlight">\(\frac{dg}{dx}\)</span> for diffusion in finite volume method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ind</strong> (<em>vector of indices</em>) – indices of the node to compute the diffusion distance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the distance to be used in diffusion computation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">r_dist (vector of doubles)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_edge_midpoints">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_edge_midpoints</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em>, <em>dir</em>, <em>is_left_edge</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_edge_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the midpoint of the given edge of a node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ind</strong> (<em>n-vector of indices</em>) – indices of the <strong>node</strong> to compute the mid-point of the edge</li>
+<li><strong>dir</strong> (<em>n-vector of integers</em>) – coordinate direction of the edge to consider</li>
+<li><strong>is_left_edge</strong> (<em>n-vector of bools</em>) – whether computing the mid-points of the left edge or not</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">midpoints of the edge</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">midpts (n <span class="math notranslate nohighlight">\(\times\)</span> <a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n_dim</span></code></a> of doubles)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function is to calculate external edges of the node that does not face a different node. For internal nodes, consider using function <a class="reference internal" href="#afv_grid.edge_midpoints" title="afv_grid.edge_midpoints"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">edge_midpoints</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_node_bds">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_node_bds</code><span class="sig-paren">(</span><em>obj</em>, <em>x_knots</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_node_bds" title="Permalink to this definition">¶</a></dt>
+<dd><p>INTERNAL FUNCTION: computes boundaries of new nodes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x_knots</strong> (<em>cell of vector of doubles</em>) – the boundary knots that define the tensor cut split of a node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">boundaries of the nodes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">output (matrix of doubles)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_num_neighbors">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_num_neighbors</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_num_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the number of neighbors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n2n</strong> – (implicit) <a class="reference internal" href="#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[num_nb] implicit in class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_transition_matrix_boundary">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_transition_matrix_boundary</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em>, <em>dir</em>, <em>flow</em>, <em>is_left_edge</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_transition_matrix_boundary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the transition matrix corresponding to the boundary of the given node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ind</strong> (<em>vector of indices</em>) – indices of the node to compute the edge dynamics</li>
+<li><strong>dir</strong> (<em>vector of integers</em>) – coordinate directions of the edges/flows to consider</li>
+<li><strong>flow</strong> (<em>vector of doubles</em>) – flow/drift rate across the edges</li>
+<li><strong>is_left_edge</strong> (<em>vector of bool</em>) – whether the edge is a left edge or not</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the transition matrix of the FPK-equation for the given flows across the edges.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">A_eFP (<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> sparse matrix of doubles)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is <a class="reference internal" href="#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a> function that handles the construction of the transition matrix for internal edges facing other cells. This function is supposed to be used for creating the flows for the boundary conditions.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_transition_matrix_center">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_transition_matrix_center</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_transition_matrix_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the transition matrix corresponding to the Fokker Planck equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dg}{dt} = -\frac{d}{dx}\left(s(x)\cdot g(x)\right) + \nu \frac{d^2 g}{dx^2}\]</div>
+<p>using central difference approximation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e2n</strong> – implicit in class</li>
+<li><strong>drift</strong> – implicit in class</li>
+<li><strong>diffusion</strong> – implicit in class</li>
+<li><strong>node_weights</strong> – implicit in class</li>
+<li><strong>e_weights</strong> – implicit in class</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the transition matrix from the FPK-equation</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">A_FP (<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> sparse matrix of doubles)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Many separate parts are needed before this function can be called properly. Instead of setting them manually, try to use the given functions that guarantee the internal structure.</li>
+<li>This function is for internal edges, for external edges, use <a class="reference internal" href="#afv_grid.compute_transition_matrix_boundary" title="afv_grid.compute_transition_matrix_boundary"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_boundary</span></code></a>.</li>
+<li>Central value approximation is not guaranteed to be stable, if the solution do not behave well consider using <a class="reference internal" href="#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a>.</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_transition_matrix_modified">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_transition_matrix_modified</code><span class="sig-paren">(</span><em>obj</em>, <em>weighter</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_transition_matrix_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the transition matrix corresponding to the Fokker-Planck equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dg}{dt} = -\frac{d}{dx}\left(s(x)\cdot g(x)\right) + \nu \frac{d^2 g}{dx^2}\]</div>
+<p>using the modified upwind scheme (equation 2.3) of <a class="reference internal" href="zrefs.html#axelsson1979modified" id="id1">[Axelsson &amp; Gustafsson, 1979]</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e2n</strong> – implicit in class</li>
+<li><strong>drift</strong> – implicit in class</li>
+<li><strong>diffusion</strong> – implicit in class</li>
+<li><strong>node_weights</strong> – implicit in class</li>
+<li><strong>e_weights</strong> – implicit in class</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the transition matrix from the FPK-equation</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">A_FP (<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> sparse matrix of doubles)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Many separate parts are needed before this function can be called
+properly. Instead of setting them manually, try to use the given
+functions that guarantee the internal structure.</li>
+<li>This function is for internal edges, for external edges, use
+<a class="reference internal" href="#afv_grid.compute_transition_matrix_boundary" title="afv_grid.compute_transition_matrix_boundary"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_boundary</span></code></a>.</li>
+</ul>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><a class="reference internal" href="zrefs.html#axelsson1979modified" id="id2">[Axelsson &amp; Gustafsson, 1979]</a></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.compute_transition_matrix_upwind">
+<code class="descclassname">afv_grid.</code><code class="descname">compute_transition_matrix_upwind</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.compute_transition_matrix_upwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the transition matrix corresponding to the Fokker Planck equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dg}{dt} = -\frac{d}{dx}\left(s(x)\cdot g(x)\right) + \nu \frac{d^2 g}{dx^2}\]</div>
+<p>using upwind approximation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e2n</strong> – implicit in class</li>
+<li><strong>drift</strong> – implicit in class</li>
+<li><strong>diffusion</strong> – implicit in class</li>
+<li><strong>node_weights</strong> – implicit in class</li>
+<li><strong>e_weights</strong> – implicit in class</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the transition matrix from the FPK-equation</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">A_FP (<a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a><span class="math notranslate nohighlight">\(\times\)</span><a class="reference internal" href="#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> sparse matrix of doubles)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Upwind introduced numerical diffusion, so the solution is not accurate compared to other methods. Use <a class="reference internal" href="#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a> unless there is a strong reason to use the upwind scheme.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Many separate parts are needed before this function can be called properly. Instead of setting them manually, try to use the given functions that guarantee the internal structure.</li>
+<li>This function is for internal edges, for external edges, use <a class="reference internal" href="#afv_grid.compute_transition_matrix_boundary" title="afv_grid.compute_transition_matrix_boundary"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_boundary</span></code></a>.</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.edge_midpoints">
+<code class="descclassname">afv_grid.</code><code class="descname">edge_midpoints</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.edge_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute mid-points of the edges</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ind</strong> (<em>vector of indices</em>) – indices of the edges to compute the mid-points</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">mid-points of the edges</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">e_midpoints (vector of doubles)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li><a class="reference internal" href="#afv_grid.compute_edge_midpoints" title="afv_grid.compute_edge_midpoints"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_edge_midpoints</span></code></a></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.edge_weights">
+<code class="descclassname">afv_grid.</code><code class="descname">edge_weights</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.edge_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute weight of the given edge</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ind</strong> (<em>vector of indices</em>) – indices of the edges to compute the surface area</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">surface area of the edges</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">e_weight (vector of doubles)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.extract_edges">
+<code class="descclassname">afv_grid.</code><code class="descname">extract_edges</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.extract_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract edges from nodal connections. This function only finds internal edges</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n2n</strong> – (implicit) <a class="reference internal" href="#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a></li>
+<li><strong>n2bd</strong> – (implicit) <a class="reference internal" href="#afv_grid.n2bd" title="afv_grid.n2bd"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2bd</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>[e2bd, e2n, e2dir, e_weights, num_e] (implicit in class)</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>e2bd</strong> : (in class) boundaries of the edges</li>
+<li><strong>e2n</strong> : (in class) connectivity of the edges to the nodes</li>
+<li><strong>e2dir</strong> : (in class) normal direction of the edge</li>
+<li><strong>e_weights</strong> : (in class) surface area of the edge</li>
+<li><strong>num_e</strong> : (in class) total number of edges</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.find_neighbor">
+<code class="descclassname">afv_grid.</code><code class="descname">find_neighbor</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em>, <em>dir</em>, <em>is_left</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.find_neighbor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the neighboring node for the given (single) node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ind</strong> (<em>integer</em>) – index of the node to find the neighbors of</li>
+<li><strong>dir</strong> (<em>integer</em>) – direction to find the neighbors in</li>
+<li><strong>is_left</strong> (<em>bool</em>) – whether to look for left neighbors or not</li>
+<li><strong>varargin{1}</strong> (<em>vector of indices</em>) – indices of nodes to consider for neighbors (assumed unique)</li>
+<li><strong>n2bd</strong> – (implicit in class) <a class="reference internal" href="#afv_grid.n2bd" title="afv_grid.n2bd"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2bd</span></code></a></li>
+<li><strong>n_dim</strong> – (implicit in class) <a class="reference internal" href="#afv_grid.n_dim" title="afv_grid.n_dim"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n_dim</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">nbs (vector of indices): indices of the neighbors</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">find_neighbor_structure()</span></code> runs this function for all nodes.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.find_neighbor_structure">
+<code class="descclassname">afv_grid.</code><code class="descname">find_neighbor_structure</code><span class="sig-paren">(</span><em>obj</em>, <em>new_ind</em>, <em>flag_compute_left</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.find_neighbor_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct neighbor structure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>new_ind</strong> (<strong>sorted</strong> vector of indices) – (optional) indices of new nodes to append to the neighbor structure</li>
+<li><strong>flag_compute_left</strong> (<em>bool</em>) – (default: false) whether to compute left neighbors as well</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>[n2n] (implicit in class)</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>n2n</strong> : (in class) neighbor structure</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The computing neighbor structure from scratch is an expensive operation. Therefore, one should use new_ind whenever possible. This behavior is guaranteed if one computes using <a class="reference internal" href="#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a> or <a class="reference internal" href="#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a>, so one should use that function whenever it is feasible.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.node_midpoints">
+<code class="descclassname">afv_grid.</code><code class="descname">node_midpoints</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.node_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute mid-points of the nodes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ind</strong> (<em>vector of indices</em>) – (default: ‘:’) indices of the nodes to compute the mid-points</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n_midpoints (vector of doubles): mid-points of the nodes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.node_weights">
+<code class="descclassname">afv_grid.</code><code class="descname">node_weights</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.node_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the weight of the given node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ind</strong> (<em>vector of indices</em>) – indices of the nodes to compute the volume</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">volume of the nodes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">n_weight (vector of doubles)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.set_dim">
+<code class="descclassname">afv_grid.</code><code class="descname">set_dim</code><span class="sig-paren">(</span><em>obj</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.set_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets dimensionality of the problem. This function works as the initializer for the class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – dimensionality of the problem</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(implicit in class)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Due to object-oriented design, the set of codes assumes a certain internal consistency of states. Hence, one should always set dimentionality of the problem through <a class="reference internal" href="#afv_grid.set_dim" title="afv_grid.set_dim"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">set_dim</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.split">
+<code class="descclassname">afv_grid.</code><code class="descname">split</code><span class="sig-paren">(</span><em>obj</em>, <em>ind</em>, <em>x_cuts</em>, <em>flag_compute_left</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split nodes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ind</strong> (<em>vector of indices</em>) – indices of the nodes to split</li>
+<li><strong>x_cuts</strong> (<em>cell of vector of double</em>) – for each (node, dimension) the cut points to split the node</li>
+<li><strong>flag_compute_left</strong> (<em>bool</em>) – (default: false) whether to compute left neighbors as well</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">updates all node structure and edge structure of the grid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="afv_grid.split_init">
+<code class="descclassname">afv_grid.</code><code class="descname">split_init</code><span class="sig-paren">(</span><em>obj</em>, <em>node_ind</em>, <em>x_cuts</em><span class="sig-paren">)</span><a class="headerlink" href="#afv_grid.split_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split a given node which is a starting point</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node_ind</strong> (<em>integer</em>) – index of the cell to split</li>
+<li><strong>x_cuts</strong> (<em>cell of vectors</em>) – points to introduce new edges</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(implicit in class) internally update states to introduce new cells for the given cell</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial4.html" class="btn btn-neutral" title="OU Process with Boundary Conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, SeHyoun Ahn
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.1 alpha',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  false,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

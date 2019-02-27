@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Grid Construction and Basic Interactions &mdash; Adaptive Finite Volume Toolbox 0.1 alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/mystyle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Steady-State Distribution of Ornstein-Uhlenbeck Process" href="tutorial2.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Adaptive Finite Volume Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Grid Construction and Basic Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html">Steady-State Distribution of Ornstein-Uhlenbeck Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial3.html">OU Process with Adaptive Refinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial4.html">OU Process with Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adaptive Finite Volume Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Grid Construction and Basic Interactions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="grid-construction-and-basic-interactions">
+<h1>Grid Construction and Basic Interactions<a class="headerlink" href="#grid-construction-and-basic-interactions" title="Permalink to this headline">¶</a></h1>
+<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>To implement the adaptive finite volume methods, we need to keep:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Connectivity/Neighbor structure of the cells</li>
+<li>Edge between cells</li>
+</ul>
+</div></blockquote>
+<p>and define the drift and diffusion terms for the edges. <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a> class is written to help working with this computation. To start, we initialize and set the dimensionality of the problem by</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>At this state, the grid is initialized with one cell of [0, 1] x [0, 1]. We can see this by checking the number of nodes via</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">num_n</span><span class="p">);</span>
+
+    <span class="mi">1</span>
+</pre></div>
+</div>
+<p>and checking the boundaries of the one nodes</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">n2bd</span><span class="p">);</span>
+
+    <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The boundaries are ordered by lower boundaries and then upper boundaries (by coordinate dimension). Hence, the output is</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">lower</span> <span class="n">boundary</span> <span class="n">dim</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lower</span> <span class="n">boundary</span> <span class="n">dim</span> <span class="mi">2</span><span class="p">,</span> <span class="n">upper</span> <span class="n">boundary</span> <span class="n">dim</span> <span class="mi">1</span><span class="p">,</span> <span class="n">upper</span> <span class="n">boundary</span> <span class="n">dim</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now, one can split the node by feeding in cut points, and using <a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">];</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split_init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_knots</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>As we can see, we define cell array of knot points for each dimension. With 1 cut point in dimension 1 and 2 cut points in dimension 2, we end up with total of 6 cells. We can check this by checking <a class="reference internal" href="technical.html#afv_grid.num_n" title="afv_grid.num_n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">num_n</span></code></a> again</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">num_n</span><span class="p">);</span>
+
+    <span class="mi">6</span>
+</pre></div>
+</div>
+<p>Checking boundaries of the nodes, we can see that nodes are split correctly</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">n2bd</span><span class="p">);</span>
+
+         <span class="mi">0</span>         <span class="mi">0</span>    <span class="mf">0.5000</span>    <span class="mf">0.3333</span>
+    <span class="mf">0.5000</span>         <span class="mi">0</span>    <span class="mf">1.0000</span>    <span class="mf">0.3333</span>
+         <span class="mi">0</span>    <span class="mf">0.3333</span>    <span class="mf">0.5000</span>    <span class="mf">0.6667</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.3333</span>    <span class="mf">1.0000</span>    <span class="mf">0.6667</span>
+         <span class="mi">0</span>    <span class="mf">0.6667</span>    <span class="mf">0.5000</span>    <span class="mf">1.0000</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.6667</span>    <span class="mf">1.0000</span>    <span class="mf">1.0000</span>
+</pre></div>
+</div>
+<p>Part of the requirement in computing the finite-volume discretization is keeping the “neighbor” structure of the grid so that one can compute the flows between cells. Keeping this structure together is the most difficult part of the implementation, and this structure is updated within the class as long as only supported functions (<a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a>, <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a>, and <a class="reference internal" href="technical.html#afv_grid.add_new_nodes" title="afv_grid.add_new_nodes"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">add_new_nodes</span></code></a>) are called. We can see the connectivity of the cells are updated properly by checking <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">n2n</span><span class="p">);</span>
+
+<span class="p">(:,:,</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span>
+
+     <span class="p">[]</span>     <span class="p">[]</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">]</span>     <span class="p">[]</span>
+     <span class="p">[]</span>    <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+     <span class="p">[]</span>    <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="p">[</span><span class="mi">5</span><span class="p">]</span>    <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+
+<span class="p">(:,:,</span><span class="mi">2</span><span class="p">)</span> <span class="p">=</span>
+
+    <span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+     <span class="p">[]</span>    <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">]</span>    <span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+     <span class="p">[]</span>    <span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">]</span>     <span class="p">[]</span>
+     <span class="p">[]</span>     <span class="p">[]</span>
+</pre></div>
+</div>
+<p>where things correspond to (point, coordinate direction, forward=2/backward=1). For example, [2] in the (1,2,2) denotes that the neighbor forward of point 1 in the first coordinate direction is point 2. This neighbor information in <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> is used to build the transition matrix. Because these steps are automated, one never needs to (and probably should not) work with low-level representation like <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> directly.[#]_</p>
+<p>We can further split the first grid by calling</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_knots</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This is the process of adaptively updating grid points. Now, to build the the transition matrix of the corresponding finite-volume method, we need the information on the edges/interfaces between nodes. The edges will be built based on <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> that has been kept consistent underneath the problem. One can setup the edges by calling <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This function call builds all internal edge related quantities. For example, we can see that there are 13 internal edges</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">);</span>
+
+    <span class="mi">13</span>
+</pre></div>
+</div>
+<p>Following similar syntax, we can check</p>
+<blockquote>
+<div><ul class="simple">
+<li>boundaries: <a class="reference internal" href="technical.html#afv_grid.e2bd" title="afv_grid.e2bd"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2bd</span></code></a></li>
+<li>connectivity to nodes: <a class="reference internal" href="technical.html#afv_grid.e2n" title="afv_grid.e2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2n</span></code></a></li>
+<li>direction of the edge: <a class="reference internal" href="technical.html#afv_grid.e2dir" title="afv_grid.e2dir"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2dir</span></code></a></li>
+</ul>
+</div></blockquote>
+<p>Again, for most applications, one would not need to work with low-level grid representation like <a class="reference internal" href="technical.html#afv_grid.e2n" title="afv_grid.e2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2n</span></code></a> or <a class="reference internal" href="technical.html#afv_grid.e2dir" title="afv_grid.e2dir"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">e2dir</span></code></a>, but instead work with the center of edges by calling</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_edge_midpoints</span><span class="p">()</span>
+
+<span class="nb">ans</span> <span class="p">=</span>
+
+    <span class="mf">0.2500</span>    <span class="mf">0.0833</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.5000</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.8333</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.0833</span>
+    <span class="mf">0.2500</span>    <span class="mf">0.2500</span>
+    <span class="mf">0.5000</span>    <span class="mf">0.2500</span>
+    <span class="mf">0.1250</span>    <span class="mf">0.1667</span>
+    <span class="mf">0.7500</span>    <span class="mf">0.3333</span>
+    <span class="mf">0.2500</span>    <span class="mf">0.6667</span>
+    <span class="mf">0.7500</span>    <span class="mf">0.6667</span>
+    <span class="mf">0.3750</span>    <span class="mf">0.1667</span>
+    <span class="mf">0.1250</span>    <span class="mf">0.3333</span>
+    <span class="mf">0.3750</span>    <span class="mf">0.3333</span>
+</pre></div>
+</div>
+<p>In practice, these are the points one would use to compute the drift and diffusion for the Fokker-Planck equations. In this tutorial, a detailed description of the behavior of the grid is given, but in most applications, the underlying behavior of the grid does not have to be known. One can just follow a recipe to use the finite volume method as can be seen in the next section.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial2.html" class="btn btn-neutral float-right" title="Steady-State Distribution of Ornstein-Uhlenbeck Process" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorials.html" class="btn btn-neutral" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, SeHyoun Ahn
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.1 alpha',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  false,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OU Process with Adaptive Refinements &mdash; Adaptive Finite Volume Toolbox 0.1 alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/mystyle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OU Process with Boundary Conditions" href="tutorial4.html" />
+    <link rel="prev" title="Steady-State Distribution of Ornstein-Uhlenbeck Process" href="tutorial2.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Adaptive Finite Volume Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial1.html">Grid Construction and Basic Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html">Steady-State Distribution of Ornstein-Uhlenbeck Process</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OU Process with Adaptive Refinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial4.html">OU Process with Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Adaptive Finite Volume Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>OU Process with Adaptive Refinements</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="ou-process-with-adaptive-refinements">
+<h1>OU Process with Adaptive Refinements<a class="headerlink" href="#ou-process-with-adaptive-refinements" title="Permalink to this headline">¶</a></h1>
+<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>In this tutorial, we will work through an example of applying adaptive refinements and as a starting point will take the bad parameter values from the previous tutorial. Recall that we are solving for the steady-state distribution of resulting from the Ornstein-Uhlenbeck Process</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial f}{\partial t} = -\sum_{i=1}^2 \theta_i \frac{\partial}{\partial x_i} \left[(\mu_i - x_i)\cdot f\right] + \sum_{i=1}^2 \frac{\sigma_i^2}{2} \frac{\partial^2 f}{\partial x_i^2}\]</div>
+<p>in 2-dimension. Since the code is short, we reproduce it here, but we have computed the distribution of corresponding to certain parameter values, and for those values, the approximation was not great.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">n_dim</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">n_points</span> <span class="p">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">int_sig</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">make_plots</span> <span class="p">=</span> <span class="n">true</span><span class="p">;</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">mu</span> <span class="p">=</span> <span class="mf">0.495</span><span class="o">.*</span><span class="nb">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">theta</span> <span class="p">=</span> <span class="mf">1.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">sigma</span> <span class="p">=</span> <span class="n">int_sig</span><span class="o">.^</span><span class="mf">2.</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">cut_points</span> <span class="p">=</span> <span class="n">cell</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">cut_points_1d</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_points</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">cut_points_1d</span> <span class="p">=</span> <span class="n">cut_points_1d</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cut_points</span><span class="p">{</span><span class="n">iter_dim</span><span class="p">}</span> <span class="p">=</span> <span class="n">cut_points_1d</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+<span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split_init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cut_points</span><span class="p">);</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">edge_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">drift</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="n">theta</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">,</span> <span class="n">iter_dim</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">));</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="n">sigma</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
+
+<span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="o">~</span><span class="p">]</span> <span class="p">=</span> <span class="n">eigs</span><span class="p">(</span><span class="n">A_FP</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;sm&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">g</span> <span class="p">=</span> <span class="n">g</span><span class="o">./</span><span class="n">sum</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The accuracy seen from this scheme was not great.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">node_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter3</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">g</span><span class="o">./</span><span class="n">grid</span><span class="p">.</span><span class="n">node_weights</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span> <span class="n">scatter3</span><span class="p">(</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">x_i</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">g_true</span><span class="p">(</span><span class="n">x_i</span><span class="p">),</span><span class="s">&#39;.&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_0.png"><img alt="_images/afv_tutorial3_fig_0.png" class="align-center" src="_images/afv_tutorial3_fig_0.png" style="width: 100%;" /></a>
+<p>One should reduce the domain for this problem instead of using adaptive refinements, but in this problem, we will adaptively refine the grid by splitting the grid points where necessary. This requires one to use some sort of metric to consider the expected gain from splitting a cell. The normalized weight of a cell works well, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\text{metric} = g \cdot \text{drift}\]</div>
+<p>We can compute the normalized weight via</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">drift_i</span> <span class="p">=</span> <span class="o">-</span><span class="n">theta</span><span class="o">&#39;.*</span><span class="p">(</span><span class="n">x_i</span> <span class="o">-</span> <span class="n">mu</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">drift</span> <span class="p">=</span> <span class="n">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">drift_i</span><span class="p">),</span> <span class="p">[],</span> <span class="mi">2</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">metric</span> <span class="p">=</span> <span class="n">g</span><span class="o">.*</span><span class="n">drift</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Given the metric, one can split a cell when it is bigger than a given number. To not adjust the values in iteration, we adapt the nodes with highest metric values by</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="p">[</span><span class="o">~</span><span class="p">,</span> <span class="n">ind_adapt</span><span class="p">]</span> <span class="p">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="s">&#39;descend&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">ind_adapt</span> <span class="p">=</span> <span class="n">ind_adapt</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="nb">floor</span><span class="p">(</span><span class="n">adapt_fraction</span><span class="o">*</span><span class="nb">length</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">)));</span>
+</pre></div>
+</div>
+<p>To actually split the nodes, we use the <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a> function. This function requires the node to split and the cut points in each coordinate direction. Using the midpoints as cut points, we can apply the function by</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">,</span> <span class="n">mat2cell</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">,:),</span> <span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">),</span><span class="mi">1</span><span class="p">),</span> <span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)));</span>
+</pre></div>
+</div>
+<p>Given the updated grid, one has to update the edge information by calling <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a>, but otherwise, the computation is the same as before, i.e.,</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">x_i</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">edge_midpoints</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">drift</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="o">-</span><span class="n">theta</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">,</span> <span class="n">iter_dim</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">));</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
+<span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="n">sigma</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
+
+<span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="o">~</span><span class="p">]</span> <span class="p">=</span> <span class="n">eigs</span><span class="p">(</span><span class="n">A_FP</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;sm&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span> <span class="n">g</span> <span class="p">=</span> <span class="n">g</span><span class="o">./</span><span class="n">sum</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>resulting in</p>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_1.png"><img alt="_images/afv_tutorial3_fig_1.png" class="align-center" src="_images/afv_tutorial3_fig_1.png" style="width: 100%;" /></a>
+<p>Iterating a few more times, we can clearly see that the adaptive refinements lead to accuracy gains without adding points in regions that already have zero mass.</p>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_2.png"><img alt="_images/afv_tutorial3_fig_2.png" class="align-center" src="_images/afv_tutorial3_fig_2.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_3.png"><img alt="_images/afv_tutorial3_fig_3.png" class="align-center" src="_images/afv_tutorial3_fig_3.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_4.png"><img alt="_images/afv_tutorial3_fig_4.png" class="align-center" src="_images/afv_tutorial3_fig_4.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_5.png"><img alt="_images/afv_tutorial3_fig_5.png" class="align-center" src="_images/afv_tutorial3_fig_5.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="_images/afv_tutorial3_fig_6.png"><img alt="_images/afv_tutorial3_fig_6.png" class="align-center" src="_images/afv_tutorial3_fig_6.png" style="width: 100%;" /></a>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial4.html" class="btn btn-neutral float-right" title="OU Process with Boundary Conditions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial2.html" class="btn btn-neutral" title="Steady-State Distribution of Ornstein-Uhlenbeck Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, SeHyoun Ahn
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.1 alpha',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  false,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

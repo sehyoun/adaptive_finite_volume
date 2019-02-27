@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adaptive Finite Volume Toolbox &mdash; Adaptive Finite Volume Toolbox 0.1 alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/mystyle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Adaptive Finite Volume Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Adaptive Finite Volume Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Adaptive Finite Volume Toolbox</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/sehyoun/" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="adaptive-finite-volume-toolbox">
+<h1>Adaptive Finite Volume Toolbox<a class="headerlink" href="#adaptive-finite-volume-toolbox" title="Permalink to this headline">¶</a></h1>
+<p>This is a set of codes to help with using the adaptive finite volume method for solving Fokker-Planck equations in economic applications</p>
+<div class="math notranslate nohighlight">
+\[\frac{dg}{dt} = -\sum_{i=1}^d \frac{d}{dx_i}(s_i(x)\cdot g(x)) + \sum_{i=1}^d \nu_i \frac{d^2g(x)}{dx_i^2}\]</div>
+<p>For an introduction to the finite-volume method, one can read any reference (There is one I have written for economists <a class="reference internal" href="zrefs.html#ahn2018adaptive" id="id1">[Ahn, 2019]</a>). However, working through the <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> should be sufficient for most applications.</p>
+<p>The <strong>advantages</strong> of (adaptive) finite volume method are:</p>
+<ul>
+<li><p class="first">Conservation of mass (of discretized equations)</p>
+</li>
+<li><p class="first">Positivity of the distribution function</p>
+</li>
+<li><p class="first">Local interaction of parameters (compared to global approximations such as Chebyshev polynomials)</p>
+<blockquote>
+<div><ul class="simple">
+<li>More interpretable results from geometric nature of parameters</li>
+<li>Adjusting approximation domain in a natural manner</li>
+<li>Since parameters are local/interpretable in nature, a natural candidate for the function approximation under perturbation methods.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The <strong>disadvantages</strong> are:</p>
+<ul>
+<li><p class="first">Grid points increase exponentially</p>
+<blockquote>
+<div><ul class="simple">
+<li>adaptive refinement helps address this issue</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Keeping the structure of completely unstructured grid is costly.</p>
+</li>
+</ul>
+<p>Ultimately, the result of the cost-benefit analysis for a particular problem is hard to estimate without testing. The codes/toolbox should shorten the testing time for the finite-volume method for Fokker-Planck equations.</p>
+<div class="section" id="general-workflow">
+<h2>General Workflow<a class="headerlink" href="#general-workflow" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">Initialize Grid</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Set the dimensionality of the problem:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">set_dim</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Split the grid for the first time:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">split_init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_cuts</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Collect Edges:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Set drifts and variances:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">drift</span> <span class="p">=</span> <span class="n">stuff</span><span class="p">;</span>
+<span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span> <span class="p">=</span> <span class="n">stuff</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Compute the Transition Matrix:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">A_FP</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
+<span class="n">A_FP_boundary</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_boundary</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">dir</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span>  <span class="n">is_left_edge</span><span class="p">);</span>
+<span class="n">A_FP</span> <span class="p">=</span> <span class="n">A_FP</span> <span class="o">+</span> <span class="n">A_FP_boundary</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Further refine grids:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">indices</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial1.html">Grid Construction and Basic Interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html">Steady-State Distribution of Ornstein-Uhlenbeck Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial3.html">OU Process with Adaptive Refinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial4.html">OU Process with Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical.html#properties">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zrefs.html">Bibliography</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, SeHyoun Ahn
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.1 alpha',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  false,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
