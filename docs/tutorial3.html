@@ -180,11 +180,11 @@
 </style>
 <div class="section" id="ou-process-with-adaptive-refinements">
 <h1>OU Process with Adaptive Refinements<a class="headerlink" href="#ou-process-with-adaptive-refinements" title="Permalink to this headline">¶</a></h1>
-<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>Expected Read Time: 2~6 minutes</p>
 <p>In this tutorial, we will work through an example of applying adaptive refinements and as a starting point will take the bad parameter values from the previous tutorial. Recall that we are solving for the steady-state distribution of resulting from the Ornstein-Uhlenbeck Process</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial f}{\partial t} = -\sum_{i=1}^2 \theta_i \frac{\partial}{\partial x_i} \left[(\mu_i - x_i)\cdot f\right] + \sum_{i=1}^2 \frac{\sigma_i^2}{2} \frac{\partial^2 f}{\partial x_i^2}\]</div>
-<p>in 2-dimension. Since the code is short, we reproduce it here, but we have computed the distribution of corresponding to certain parameter values, and for those values, the approximation was not great.</p>
+<p>in 2-dimension. Since the code is short, we reproduce it here in its entirety.</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">n_dim</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span>
 <span class="o">&gt;&gt;</span> <span class="n">n_points</span> <span class="p">=</span> <span class="mi">20</span><span class="p">;</span>
 <span class="o">&gt;&gt;</span> <span class="n">int_sig</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
@@ -231,7 +231,7 @@
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/afv_tutorial3_fig_0.png"><img alt="_images/afv_tutorial3_fig_0.png" class="align-center" src="_images/afv_tutorial3_fig_0.png" style="width: 100%;" /></a>
-<p>One should reduce the domain for this problem instead of using adaptive refinements, but in this problem, we will adaptively refine the grid by splitting the grid points where necessary. This requires one to use some sort of metric to consider the expected gain from splitting a cell. The normalized weight of a cell works well, i.e.,</p>
+<p>One should reduce the domain for this problem instead of using adaptive refinements, but as an illustration, we will adaptively refine the grid by splitting the grid points where necessary. This requires one to use some sort of metric to consider the expected gain from splitting a cell, and the normalized weight of a cell will be used.</p>
 <div class="math notranslate nohighlight">
 \[\text{metric} = g \cdot \text{drift}\]</div>
 <p>We can compute the normalized weight via</p>
@@ -240,12 +240,12 @@
 <span class="o">&gt;&gt;</span> <span class="n">metric</span> <span class="p">=</span> <span class="n">g</span><span class="o">.*</span><span class="n">drift</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Given the metric, one can split a cell when it is bigger than a given number. To not adjust the values in iteration, we adapt the nodes with highest metric values by</p>
+<p>Given the metric, one can split a cell when it is in a top fraction of the metric values (one can update based on some cutoff value as well).</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="p">[</span><span class="o">~</span><span class="p">,</span> <span class="n">ind_adapt</span><span class="p">]</span> <span class="p">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="s">&#39;descend&#39;</span><span class="p">);</span>
 <span class="o">&gt;&gt;</span> <span class="n">ind_adapt</span> <span class="p">=</span> <span class="n">ind_adapt</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="nb">floor</span><span class="p">(</span><span class="n">adapt_fraction</span><span class="o">*</span><span class="nb">length</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">)));</span>
 </pre></div>
 </div>
-<p>To actually split the nodes, we use the <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a> function. This function requires the node to split and the cut points in each coordinate direction. Using the midpoints as cut points, we can apply the function by</p>
+<p>Given the nodes to refine, we use the <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a> function. This function requires the node to split and the cut points in each coordinate direction. Using the midpoints as cut points, we can apply the function by</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">,</span> <span class="n">mat2cell</span><span class="p">(</span><span class="n">x_i</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">,:),</span> <span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">ind_adapt</span><span class="p">),</span><span class="mi">1</span><span class="p">),</span> <span class="nb">ones</span><span class="p">(</span><span class="n">n_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">)));</span>
 </pre></div>
 </div>

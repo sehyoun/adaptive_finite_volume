@@ -178,10 +178,10 @@
 </style>
 <div class="section" id="adaptive-finite-volume-toolbox">
 <h1>Adaptive Finite Volume Toolbox<a class="headerlink" href="#adaptive-finite-volume-toolbox" title="Permalink to this headline">¶</a></h1>
-<p>This is a set of codes to help with using the adaptive finite volume method for solving Fokker-Planck equations in economic applications</p>
+<p>This is a toolbox to apply the adaptive finite volume method solving Fokker-Planck equations in economic applications</p>
 <div class="math notranslate nohighlight">
 \[\frac{dg}{dt} = -\sum_{i=1}^d \frac{d}{dx_i}(s_i(x)\cdot g(x)) + \sum_{i=1}^d \nu_i \frac{d^2g(x)}{dx_i^2}\]</div>
-<p>For an introduction to the finite-volume method, one can read any reference (There is one I have written for economists <a class="reference internal" href="zrefs.html#ahn2018adaptive" id="id1">[Ahn, 2019]</a>). However, working through the <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> should be sufficient for most applications.</p>
+<p>For an introduction to the finite-volume method, one can read any reference, but one can read <a class="reference internal" href="zrefs.html#ahn2018adaptive" id="id1">[Ahn, 2019]</a> written with the computation of the distribution for the heterogeneous agent models in mind. However, working through the <a class="reference internal" href="tutorials.html#tutorials"><span class="std std-ref">Tutorials</span></a> should be sufficient for most applications.</p>
 <p>The <strong>advantages</strong> of (adaptive) finite volume method are:</p>
 <ul>
 <li><p class="first">Conservation of mass (of discretized equations)</p>
@@ -216,12 +216,7 @@
 <blockquote>
 <div><ul>
 <li><p class="first">Initialize Grid</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">;</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Set the dimensionality of the problem:</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span><span class="p">.</span><span class="n">set_dim</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">(</span><span class="n">n_dim</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>

@@ -180,7 +180,7 @@
 </style>
 <div class="section" id="grid-construction-and-basic-interactions">
 <h1>Grid Construction and Basic Interactions<a class="headerlink" href="#grid-construction-and-basic-interactions" title="Permalink to this headline">¶</a></h1>
-<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>Expected Read Time: 3~5 minutes</p>
 <p>To implement the adaptive finite volume methods, we need to keep:</p>
 <blockquote>
 <div><ul class="simple">
@@ -188,7 +188,7 @@
 <li>Edge between cells</li>
 </ul>
 </div></blockquote>
-<p>and define the drift and diffusion terms for the edges. <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a> class is written to help working with this computation. To start, we initialize and set the dimensionality of the problem by</p>
+<p>consistent and define the drift and diffusion terms for the edges. <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a> class is written to help working with this computation. To start, we initialize and set the dimensionality of the problem by</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span> <span class="p">=</span> <span class="n">afv_grid</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -232,7 +232,7 @@
     <span class="mf">0.5000</span>    <span class="mf">0.6667</span>    <span class="mf">1.0000</span>    <span class="mf">1.0000</span>
 </pre></div>
 </div>
-<p>Part of the requirement in computing the finite-volume discretization is keeping the “neighbor” structure of the grid so that one can compute the flows between cells. Keeping this structure together is the most difficult part of the implementation, and this structure is updated within the class as long as only supported functions (<a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a>, <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a>, and <a class="reference internal" href="technical.html#afv_grid.add_new_nodes" title="afv_grid.add_new_nodes"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">add_new_nodes</span></code></a>) are called. We can see the connectivity of the cells are updated properly by checking <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a></p>
+<p>A part of the requirement in computing the finite-volume discretization is keeping the “neighbor” structure of the grid so that one can compute the flows between cells. Keeping this structure together is the most difficult part of the implementation, and this structure is updated within the class as long as only supported functions (<a class="reference internal" href="technical.html#afv_grid.split_init" title="afv_grid.split_init"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split_init</span></code></a>, <a class="reference internal" href="technical.html#afv_grid.split" title="afv_grid.split"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">split</span></code></a>, and <a class="reference internal" href="technical.html#afv_grid.add_new_nodes" title="afv_grid.add_new_nodes"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">add_new_nodes</span></code></a>) are called. We can see the connectivity of the cells are updated properly by checking <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="nb">disp</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">n2n</span><span class="p">);</span>
 
 <span class="p">(:,:,</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span>
@@ -255,7 +255,7 @@
      <span class="p">[]</span>     <span class="p">[]</span>
 </pre></div>
 </div>
-<p>where things correspond to (point, coordinate direction, forward=2/backward=1). For example, [2] in the (1,2,2) denotes that the neighbor forward of point 1 in the first coordinate direction is point 2. This neighbor information in <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> is used to build the transition matrix. Because these steps are automated, one never needs to (and probably should not) work with low-level representation like <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> directly.[#]_</p>
+<p>where things correspond to (point, coordinate direction, forward=2/backward=1). For example, [2] in the (1,1,2) denotes that the neighbor forward of point 1 in the first coordinate direction is point 2. This neighbor information in <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> is used to build the transition matrix. Because these steps are automated, one never needs to (and probably should not) work with low-level representation like <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> directly.[#]_</p>
 <p>We can further split the first grid by calling</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
 <span class="o">&gt;&gt;</span> <span class="n">x_knots</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">;</span>
@@ -263,7 +263,7 @@
 <span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_knots</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>This is the process of adaptively updating grid points. Now, to build the the transition matrix of the corresponding finite-volume method, we need the information on the edges/interfaces between nodes. The edges will be built based on <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> that has been kept consistent underneath the problem. One can setup the edges by calling <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a></p>
+<p>This is the process of adaptively updating grid points. Now, to build the the transition matrix of the corresponding finite-volume method, we need the information on the edges/interfaces between nodes. The edges will be built using <a class="reference internal" href="technical.html#afv_grid.n2n" title="afv_grid.n2n"><code class="xref mat mat-attr docutils literal notranslate"><span class="pre">n2n</span></code></a> that has been kept consistent underneath the problem. One can setup the edges by calling <a class="reference internal" href="technical.html#afv_grid.extract_edges" title="afv_grid.extract_edges"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">extract_edges</span></code></a></p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">.</span><span class="n">extract_edges</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -301,7 +301,7 @@
     <span class="mf">0.3750</span>    <span class="mf">0.3333</span>
 </pre></div>
 </div>
-<p>In practice, these are the points one would use to compute the drift and diffusion for the Fokker-Planck equations. In this tutorial, a detailed description of the behavior of the grid is given, but in most applications, the underlying behavior of the grid does not have to be known. One can just follow a recipe to use the finite volume method as can be seen in the next section.</p>
+<p>In practice, these are the points where one would compute the drift and diffusion for the Fokker-Planck equations. In this tutorial, a detailed description of the behaviors of the grid is given, but in most applications, one does not have to consider the underlying behaviors of the grid. One can just follow a recipe to use the finite volume method as will be shown in the next section.</p>
 </div>
 
 

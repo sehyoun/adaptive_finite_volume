@@ -180,7 +180,7 @@
 </style>
 <div class="section" id="steady-state-distribution-of-ornstein-uhlenbeck-process">
 <h1>Steady-State Distribution of Ornstein-Uhlenbeck Process<a class="headerlink" href="#steady-state-distribution-of-ornstein-uhlenbeck-process" title="Permalink to this headline">¶</a></h1>
-<p>Expected Read Time: <span class="red">XXXXX</span></p>
+<p>Expected Read Time: 4~7 minutes</p>
 <p>In this tutorial, we will solve for the distribution of resulting from the Ornstein-Uhlenbeck Process</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial f}{\partial t} = -\sum_{i=1}^2 \theta_i \frac{\partial}{\partial x_i} \left[(\mu_i - x_i)\cdot f\right] + \sum_{i=1}^2 \frac{\sigma_i^2}{2} \frac{\partial^2 f}{\partial x_i^2}\]</div>
@@ -243,14 +243,14 @@
 </pre></div>
 </div>
 <p>For example, with <code class="code docutils literal notranslate"><span class="pre">iter_dim</span> <span class="pre">=</span> <span class="pre">1</span></code>, the drift value of the edges facing the first coordinate directions are updated. This is why <span class="math notranslate nohighlight">\(x_1\)</span> ( = <code class="code docutils literal notranslate"><span class="pre">x_i(cur_ind,</span> <span class="pre">iter_dim)</span></code> ) is used to compute the drift.</p>
-<p>Similarly diffusion can be implemented,</p>
+<p>Diffusions can be implemented in a similar manner:</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="k">for</span> <span class="n">iter_dim</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_dim</span>
 <span class="o">&gt;&gt;</span>     <span class="n">cur_ind</span> <span class="p">=</span> <span class="nb">find</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">e2dir</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">grid</span><span class="p">.</span><span class="n">num_e</span><span class="p">)</span> <span class="o">==</span> <span class="n">iter_dim</span><span class="p">);</span>
 <span class="o">&gt;&gt;</span>     <span class="n">grid</span><span class="p">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">cur_ind</span><span class="p">)</span> <span class="p">=</span> <span class="n">sigma</span><span class="p">(</span><span class="n">iter_dim</span><span class="p">);</span>
 <span class="o">&gt;&gt;</span> <span class="k">end</span>
 </pre></div>
 </div>
-<p>note that the value that’s defined for diffusion is <span class="math notranslate nohighlight">\(\sigma^2_i\)</span>, without the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>. As the fraction <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> shows up in all equations, it is taken as implicit when the transition matrix is built.</p>
+<p>Note that the value that’s defined for diffusion is <span class="math notranslate nohighlight">\(\sigma^2_i\)</span>, without the factor <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>. As the fraction <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> shows up in all equations, it is taken as implicit when the transition matrix is built.</p>
 <p>Now, once we have set the drift and diffusion terms to the edges, we can build the transition matrix using <a class="reference internal" href="technical.html#afv_grid.compute_transition_matrix_modified" title="afv_grid.compute_transition_matrix_modified"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">compute_transition_matrix_modified</span></code></a>.</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="p">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">compute_transition_matrix_modified</span><span class="p">();</span>
 </pre></div>
@@ -269,7 +269,7 @@
 </div>
 <a class="reference internal image-reference" href="_images/afv_tutorial2_fig_3.png"><img alt="_images/afv_tutorial2_fig_3.png" class="align-center" src="_images/afv_tutorial2_fig_3.png" style="width: 100%;" /></a>
 <p>For this particular set of parameters, the grid is not good enough to approximate with high accuracy. One can see that this is largely due to picking wrong domain for the parameter values. This will be fixed by adjusting domain or using adaptive refinements. The adaptive refinements will be shown in the next tutorial, but in the mean time, let’s solve a problem with nicer parameters.</p>
-<p>One nice feature of the finite volume discretization is that the structure of the transition matrix is independent of the parameter values, so only the drift and diffusion have to be updated to reflect the new parameters.</p>
+<p>Updating to a new parameters highlights one nice feature of the finite volume discretization. With the finite volume method, the structure of the transition matrix is independent of the parameter values, so only the drift and diffusion have to be updated to reflect the new parameters.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}&amp;\vec{\mu} = \begin{bmatrix}0.35\\0.35\end{bmatrix}\\
 &amp;\vec{\sigma} = \begin{bmatrix} 0.2\\ 0.2\end{bmatrix}\\
@@ -297,7 +297,7 @@
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/afv_tutorial2_fig_4.png"><img alt="_images/afv_tutorial2_fig_4.png" class="align-center" src="_images/afv_tutorial2_fig_4.png" style="width: 100%;" /></a>
-<p>To conclude, one can see that using the finite volume discretization is simple with minimal coding. One just needs to call</p>
+<p>To conclude, one can implement the finite volume method follow a simple recipe. One just needs to call</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Initialize grid <a class="reference internal" href="technical.html#afv_grid.afv_grid.afv_grid" title="afv_grid.afv_grid.afv_grid"><code class="xref mat mat-meth docutils literal notranslate"><span class="pre">afv_grid</span></code></a></li>

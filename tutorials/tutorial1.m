@@ -1,10 +1,12 @@
-% Tutorial 1: Grid structure
+%% Tutorial 1: Grid structure
 %
-% One can see a marked up version of the tutorial at <https://sehyoun.com/adaptive_finite_volume>
+% One can see a marked up version of the tutorial at
+%    <https://sehyoun.com/adaptive_finite_volume>
 %
+
 % License:
-%    Copyright 2017-2019 SeHyoun Ahn
-%    BSD 2-clause see <https://github.com/sehyoun/>
+%   Copyright 2017-2019 SeHyoun Ahn
+%   BSD 0-clause <https://opensource.org/licenses/0BSD>
 %
 
 addpath('../src');

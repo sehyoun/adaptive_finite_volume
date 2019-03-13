@@ -1,10 +1,12 @@
 %% Tutorial 2: Ornstein-Uhlenbeck Process using adaptive grid data structure, but with adaptivity
 %
-% One can see a marked up version of the tutorial at <https://sehyoun.com/adaptive_finite_volume>
+% One can see a marked up version of the tutorial at
+%    <https://sehyoun.com/adaptive_finite_volume>
 %
+
 % License:
-%    Copyright 2017-2019 SeHyoun Ahn
-%    BSD 2-clause see <https://github.com/sehyoun/>
+%   Copyright 2017-2019 SeHyoun Ahn
+%   BSD 0-clause <https://opensource.org/licenses/0BSD>
 %
 
 clear;
